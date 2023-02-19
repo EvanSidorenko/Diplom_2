@@ -29,10 +29,10 @@ public class LoginUserTests {
 
         accessToken = response.extract().path("accessToken");
 
-        String actualErrorMessage = response.extract().path("message");
+        boolean actualBodyMessage = response.extract().path("success");
 
         Assert.assertEquals(SC_OK, actualStatusCode);
-        Assert.assertEquals(actualErrorMessage, true);
+        Assert.assertEquals(actualBodyMessage, true);
 
     }
 

@@ -28,7 +28,7 @@ public class ChangedUsersDataTests {
         ValidatableResponse responseWithChangedData = userClient.changeUsersCreds(userGenerator.getUserWithRandomCreds(), accessToken);
 
         int actualStatusCode = responseWithChangedData.extract().statusCode();
-        String actualBodyMessage = responseWithChangedData.extract().path("success");
+        boolean actualBodyMessage = responseWithChangedData.extract().path("success");
 
         Assert.assertEquals(SC_OK, actualStatusCode);
         Assert.assertEquals(actualBodyMessage, true);
