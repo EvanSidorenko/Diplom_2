@@ -71,9 +71,13 @@ public class CreateOrderTests {
 
         ValidatableResponse createOrderResponse = orderClient.createOrder(orderGenerator.getOrderWithNoIngredients(), accessToken);
         int actualStatusCode = createOrderResponse.extract().statusCode();
+        String actualBodyMessage = createOrderResponse.extract().path("message");
+
 
         Assert.assertEquals(SC_BAD_REQUEST, actualStatusCode);
-        Assert.assertEquals(orderClient.get400ErrorWhenCreateOrderWithoutIngredients(), createOrderResponse.extract().path("message"));
+        Assert.assertEquals(orderClient.getErrorWhenIngredientsIdsMustBeProvided(), actualBodyMessage);
+
+
 
     }
     @Test
@@ -88,7 +92,7 @@ public class CreateOrderTests {
         int actualStatusCode = createOrderResponse.extract().statusCode();
 
         Assert.assertEquals(SC_BAD_REQUEST, actualStatusCode);
-        Assert.assertEquals(orderClient.get400ErrorWhenCreateOrderWithoutIngredients(), createOrderResponse.extract().path("message"));
+        Assert.assertEquals(orderClient.getErrorWhenIngredientsIdsMustBeProvided(), createOrderResponse.extract().path("message"));
 
     }
 
@@ -100,11 +104,11 @@ public class CreateOrderTests {
 
         accessToken = loginResponse.extract().path("accessToken");
 
-        ValidatableResponse createOrderResponse = orderClient.createOrder(orderGenerator.getOrderWithNoIngredients(), accessToken);
+        ValidatableResponse createOrderResponse = orderClient.createOrder(orderGenerator.getOrderWithIncorrectIngredients(), accessToken);
         int actualStatusCode = createOrderResponse.extract().statusCode();
 
-        Assert.assertEquals(SC_BAD_REQUEST, actualStatusCode);
-        Assert.assertEquals(orderClient.get400ErrorWhenCreateOrderWithoutIngredients(), createOrderResponse.extract().path("message"));
+        Assert.assertEquals(SC_INTERNAL_SERVER_ERROR, actualStatusCode);
+
 
     }
 

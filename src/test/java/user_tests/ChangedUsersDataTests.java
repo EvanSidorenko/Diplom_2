@@ -48,8 +48,7 @@ public class ChangedUsersDataTests {
         String actualErrorMessage = responseWithChangedData.extract().path("message");
 
         Assert.assertEquals(SC_UNAUTHORIZED, actualStatusResponse);
-        Assert.assertEquals(actualErrorMessage, UserClient.USER_SHOULD_BE_AUTHORIZED_MESSAGE);
-
+        Assert.assertEquals(actualErrorMessage, userClient.get401ErrorMessageWhenUserIsNotAuthorized());
 
     }
 

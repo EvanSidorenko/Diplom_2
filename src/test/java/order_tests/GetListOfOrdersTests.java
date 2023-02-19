@@ -1,6 +1,5 @@
 package order_tests;
 
-import com.sun.source.tree.AssertTree;
 import example.order.OrderClient;
 import example.order.OrderGenerator;
 import example.user_client.User;
@@ -51,7 +50,7 @@ public class GetListOfOrdersTests {
         String actualBodyMessage = getOrderListResponse.extract().path("message");
 
         Assert.assertEquals(SC_UNAUTHORIZED, actualGetOrderResponseStatusCode);
-        Assert.assertEquals(orderClient.get401ErrorWhenGetListOFOrdersWithoutAuth(), actualBodyMessage);
+        Assert.assertEquals(orderClient.getErrorWhenReceiveListOfOrdersWithoutAuth(), actualBodyMessage);
 
     }
 

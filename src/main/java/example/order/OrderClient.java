@@ -30,10 +30,10 @@ public class OrderClient extends Client {
                 .then();
     }
 
-    public String get400ErrorWhenCreateOrderWithoutIngredients() {
+    public String getErrorWhenIngredientsIdsMustBeProvided() {
         return INGREDIENT_ERROR_MESSAGE;
     }
-    public String get401ErrorWhenGetListOFOrdersWithoutAuth() {
+    public String getErrorWhenReceiveListOfOrdersWithoutAuth() {
         return GET_LIST_OF_ORDERS_WITHOUT_AUTH_ERROR_MESSAGE;
     }
 
