@@ -1,16 +1,16 @@
-package example.order;
+package helpers.order;
 
-import example.Client;
+import helpers.Client;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-
 import static io.restassured.RestAssured.given;
 
 public class OrderClient extends Client {
     public final static String CREATE_ORDER = "api/orders";
-
     public final static String INGREDIENT_ERROR_MESSAGE = "Ingredient ids must be provided";
     public final static String GET_LIST_OF_ORDERS_WITHOUT_AUTH_ERROR_MESSAGE = "You should be authorised";
 
+    @Step("Create order")
     public ValidatableResponse createOrder(Order order, String accessToken) {
         return given()
                 .spec(getSpec())
@@ -21,6 +21,7 @@ public class OrderClient extends Client {
                 .then();
     }
 
+    @Step("Get list of orders")
     public ValidatableResponse getListOfOrders(String accessToken) {
         return given()
                 .spec(getSpec())

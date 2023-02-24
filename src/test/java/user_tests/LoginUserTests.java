@@ -1,15 +1,14 @@
 package user_tests;
 
-import example.user_client.User;
-import example.user_client.UserClient;
-import example.user_client.UserCreds;
-import example.user_client.UserGenerator;
+import helpers.user.User;
+import helpers.user.UserClient;
+import helpers.user.UserCreds;
+import helpers.user.UserGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 

@@ -1,8 +1,8 @@
 package user_tests;
 
-import example.user_client.User;
-import example.user_client.UserClient;
-import example.user_client.UserGenerator;
+import helpers.user.User;
+import helpers.user.UserClient;
+import helpers.user.UserGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;

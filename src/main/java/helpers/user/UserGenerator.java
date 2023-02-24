@@ -1,4 +1,4 @@
-package example.user_client;
+package helpers.user;
 
 import com.github.javafaker.Faker;
 

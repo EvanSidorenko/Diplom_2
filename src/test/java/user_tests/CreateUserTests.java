@@ -1,15 +1,16 @@
 package user_tests;
 
-import example.user_client.User;
-import example.user_client.UserClient;
-import example.user_client.UserGenerator;
+import helpers.user.User;
+import helpers.user.UserClient;
+import helpers.user.UserGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.apache.http.HttpStatus.*;
+import static org.apache.http.HttpStatus.SC_FORBIDDEN;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class CreateUserTests {
     private String accessToken;
@@ -23,9 +24,8 @@ public class CreateUserTests {
         int actualStatusCode = response.extract().statusCode();
         accessToken = response.extract().path("accessToken");
 
-        Assert.assertEquals(response.extract().path("success"), true);
         Assert.assertEquals(SC_OK, actualStatusCode);
-
+        Assert.assertEquals(response.extract().path("success"), true);
     }
 
     @Test

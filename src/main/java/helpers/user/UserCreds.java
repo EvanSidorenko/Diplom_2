@@ -1,4 +1,4 @@
-package example.user_client;
+package helpers.user;
 
 public class UserCreds {
     private String email;

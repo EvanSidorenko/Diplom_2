@@ -1,4 +1,4 @@
-package example.user_client;
+package helpers.user;
 
 public class User {
     private String email;
@@ -26,7 +26,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

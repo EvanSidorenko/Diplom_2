@@ -1,12 +1,11 @@
 package order_tests;
 
-import example.order.Order;
-import example.order.OrderClient;
-import example.order.OrderGenerator;
-import example.user_client.User;
-import example.user_client.UserClient;
-import example.user_client.UserCreds;
-import example.user_client.UserGenerator;
+import helpers.order.OrderClient;
+import helpers.order.OrderGenerator;
+import helpers.user.User;
+import helpers.user.UserClient;
+import helpers.user.UserCreds;
+import helpers.user.UserGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -22,18 +21,17 @@ public class CreateOrderTests {
     private OrderGenerator orderGenerator = new OrderGenerator();
     private UserGenerator userGenerator = new UserGenerator();
     private UserClient userClient = new UserClient();
-
     private User user;
-
+    ValidatableResponse createUserResponse;
 
     @Before
     public void createUser() {
          user = userGenerator.getUserWithRandomCreds();
+         createUserResponse = userClient.createUser(user);
     }
     @Test
     @DisplayName("Check order creation with auth and ingredients")
     public void checkOrderCreationWithAuth() {
-        ValidatableResponse createUserResponse = userClient.createUser(user);
         ValidatableResponse loginResponse = userClient.loginUser(UserCreds.from(user));
 
         accessToken = loginResponse.extract().path("accessToken");
@@ -49,9 +47,6 @@ public class CreateOrderTests {
     @Test
     @DisplayName("Check order can be created without auth and with ingredients")
     public void checkOrderCannotBeCreatedWithoutAuth() {
-        ValidatableResponse createUserResponse = userClient.createUser(user);
-        ValidatableResponse loginResponse = userClient.loginUser(UserCreds.from(user));
-
         accessToken = "wrongToken";
 
         ValidatableResponse createOrderResponse = orderClient.createOrder(orderGenerator.getOrderWithCorrectIngredients(), accessToken);
@@ -64,7 +59,6 @@ public class CreateOrderTests {
     @Test
     @DisplayName("Check order cannot be created created with authorization and without ingredients")
     public void checkOrderCannotBeCreatedWithoutIngredients() {
-        ValidatableResponse createUserResponse = userClient.createUser(user);
         ValidatableResponse loginResponse = userClient.loginUser(UserCreds.from(user));
 
         accessToken = loginResponse.extract().path("accessToken");
@@ -77,15 +71,10 @@ public class CreateOrderTests {
         Assert.assertEquals(SC_BAD_REQUEST, actualStatusCode);
         Assert.assertEquals(orderClient.getErrorWhenIngredientsIdsMustBeProvided(), actualBodyMessage);
 
-
-
     }
     @Test
     @DisplayName("Check order cannot be created created without authorization and without ingredients")
     public void checkOrderCannotBeCreatedWithoutAuthAndIngredients() {
-        ValidatableResponse createUserResponse = userClient.createUser(user);
-        ValidatableResponse loginResponse = userClient.loginUser(UserCreds.from(user));
-
         accessToken = "wrongToken";
 
         ValidatableResponse createOrderResponse = orderClient.createOrder(orderGenerator.getOrderWithNoIngredients(), accessToken);
@@ -99,7 +88,6 @@ public class CreateOrderTests {
     @Test
     @DisplayName("Check order cannot be created with wrong ingredients hash")
     public void checkOrderCannotBeCreatedWithWrongIngredientHash() {
-        ValidatableResponse createUserResponse = userClient.createUser(user);
         ValidatableResponse loginResponse = userClient.loginUser(UserCreds.from(user));
 
         accessToken = loginResponse.extract().path("accessToken");
@@ -109,9 +97,7 @@ public class CreateOrderTests {
 
         Assert.assertEquals(SC_INTERNAL_SERVER_ERROR, actualStatusCode);
 
-
     }
-
 
     @After
     public void deleteUser() {
