@@ -1,4 +1,4 @@
-package order_tests;
+package order.tests;
 
 import helpers.order.OrderClient;
 import helpers.order.OrderGenerator;

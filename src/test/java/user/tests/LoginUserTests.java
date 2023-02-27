@@ -1,4 +1,4 @@
-package user_tests;
+package user.tests;
 
 import helpers.user.User;
 import helpers.user.UserClient;

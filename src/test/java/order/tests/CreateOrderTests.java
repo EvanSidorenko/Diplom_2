@@ -1,4 +1,4 @@
-package order_tests;
+package order.tests;
 
 import helpers.order.OrderClient;
 import helpers.order.OrderGenerator;
@@ -22,7 +22,7 @@ public class CreateOrderTests {
     private UserGenerator userGenerator = new UserGenerator();
     private UserClient userClient = new UserClient();
     private User user;
-    ValidatableResponse createUserResponse;
+    private ValidatableResponse createUserResponse;
 
     @Before
     public void createUser() {
